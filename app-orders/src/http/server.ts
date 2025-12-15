@@ -59,6 +59,6 @@ app.post(
   }
 );
 
-app.listen({ host: "0.0.0.0", port: 3333 }).then(() => {
+app.listen({ host: "0.0.0.0", port: 3334 }).then(() => {
   console.log("[ORDERS] HTTP server running");
 });
