@@ -1,5 +1,4 @@
-import { date, integer } from "drizzle-orm/pg-core";
-import { timestamp } from "drizzle-orm/pg-core";
+import { date } from "drizzle-orm/pg-core";
 import { text } from "drizzle-orm/pg-core";
 import { pgTable } from "drizzle-orm/pg-core";
 

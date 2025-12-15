@@ -10,6 +10,7 @@ import {
 import { channels } from "../broker/channels/index.ts";
 import { schema } from "../database/schema/index.ts";
 import { db } from "../database/client.ts";
+import { dispatchOrderCreated } from "../broker/messages/orders-created.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.setSerializerCompiler(serializerCompiler);
@@ -38,14 +39,19 @@ app.post(
 
     console.log("[ORDERS] New order received:", amount);
 
-    channels.orders.sendToQueue(
-      "orders",
-      Buffer.from(JSON.stringify({ amount }))
-    );
+    const orderId = randomUUID();
+
+    dispatchOrderCreated({
+      orderId,
+      amount,
+      customer: {
+        id: "edd18e21-4807-468f-826c-4a929a0f905d",
+      },
+    });
 
     await db.insert(schema.orders).values({
-      id: randomUUID(),
-      customerId: "5c04c63f-e3ab-4b3d-aefe-3d8781063047",
+      id: orderId,
+      customerId: "edd18e21-4807-468f-826c-4a929a0f905d",
       amount,
     });
 

@@ -8,7 +8,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --prod --frozen-lockfile
+RUN npm install --omit=dev 
 
 # ------
 
